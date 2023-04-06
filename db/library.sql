@@ -6,9 +6,9 @@ create table author
     second_name varchar(255) null
 );
 
-INSERT INTO author (id, first_name, second_name) VALUES (1, 'Ричард', 'Флэнаган');
-INSERT INTO author (id, first_name, second_name) VALUES (2, 'Лев', 'Толстой');
-INSERT INTO author (id, first_name, second_name) VALUES (3, 'Леонид', 'Андреев');
+INSERT INTO author (first_name, second_name) VALUES ('Ричард', 'Флэнаган');
+INSERT INTO author (first_name, second_name) VALUES ('Лев', 'Толстой');
+INSERT INTO author (first_name, second_name) VALUES ('Леонид', 'Андреев');
 
 create table customer
 (
@@ -18,8 +18,8 @@ create table customer
     second_name varchar(255) null
 );
 
-INSERT INTO customer (id, first_name, second_name) VALUES (1, 'Дмитрий', 'Дмитриев');
-INSERT INTO customer (id, first_name, second_name) VALUES (2, 'Александра', 'Александрова');
+INSERT INTO customer (first_name, second_name) VALUES ('Дмитрий', 'Дмитриев');
+INSERT INTO customer (first_name, second_name) VALUES ('Александра', 'Александрова');
 
 create table book
 (
