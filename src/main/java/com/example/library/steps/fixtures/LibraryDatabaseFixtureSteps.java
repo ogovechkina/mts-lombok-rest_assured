@@ -1,4 +1,4 @@
-package com.example.library.steps;
+package com.example.library.steps.fixtures;
 
 import com.example.library.config.DatabaseConfiguration;
 import com.example.library.entity.Author;

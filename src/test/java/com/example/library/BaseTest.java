@@ -1,6 +1,6 @@
 package com.example.library;
 
-import com.example.library.steps.LibraryDatabaseFixtureSteps;
+import com.example.library.steps.fixtures.LibraryDatabaseFixtureSteps;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
