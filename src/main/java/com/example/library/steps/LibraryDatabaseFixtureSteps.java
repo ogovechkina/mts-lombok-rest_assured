@@ -65,4 +65,7 @@ public class LibraryDatabaseFixtureSteps {
 
     @Step("Получаем автора с ID {0}")
     public Author getAutorId(Long newAutorId) {return session.find(Author.class, newAutorId);}
+
+    @Step("Получаем клиента с ID {0}")
+    public Customer getCustomerId(Long newCustomerId) {return session.find(Customer.class, newCustomerId);}
 }
