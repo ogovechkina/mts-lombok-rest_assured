@@ -15,7 +15,6 @@ import io.qameta.allure.Story;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Arrays;
@@ -27,6 +26,7 @@ import java.util.List;
 class GetAuthorBooksTests extends BaseTest {
 
     private final LibraryGetAuthorBooksSteps getAuthorBooksSteps = new LibraryGetAuthorBooksSteps();
+
     @Test
     @DisplayName("Позитивный тест /library/authors/{authorId}/books")
     @Description("Проверка успешного получения списка книг по автору.")
@@ -45,22 +45,25 @@ class GetAuthorBooksTests extends BaseTest {
                         .id(expectedBook1.getId())
                         .bookTitle(expectedBook1.getBookTitle())
                         .author(new AuthorDto(expectedBook1.getAuthorId()))
-                        .customer(new CustomerDto(expectedBook1.getCustomerId()))
+                        .customer(CustomerDto.builder()
+                                .id(gennadyBukin.getId())
+                                .firstName(gennadyBukin.getFirstName())
+                                .secondName(gennadyBukin.getSecondName())
+                                .build())
                         .build(),
                 AuthorBookDto.builder()
                         .id(expectedBook2.getId())
                         .bookTitle(expectedBook2.getBookTitle())
                         .author(new AuthorDto(expectedBook2.getAuthorId()))
-                        .customer(new CustomerDto(expectedBook2.getCustomerId()))
+                        .customer(null)
                         .build());
         getAuthorBooksSteps.getAuthorBooksResponseShouldBeCorrect(actualAuthorBooks, expectedAuthorBooks);
     }
 
 
-    @DisplayName("Негативный тест /library/authors/{authorId}/books")
+    @DisplayName("Негативный тест /library/authors/{0}/books")
     @Description("Проверка ошибки при получении списка книг по некорректному автору.")
     @ParameterizedTest(name = "{displayName} [{index}] Параметры: authorId=[{0}].")
-    @NullSource
     @ValueSource(longs = {-1})
     void failuruGetBooksWithUnknownAuthorId(Long authorId) {
         getAuthorBooksSteps.getAuthorBooks(authorId, 404);

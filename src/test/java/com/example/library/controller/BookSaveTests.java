@@ -36,7 +36,9 @@ class BookSaveTests extends BaseTest {
         BookSaveRequest request = BookSaveRequest.builder()
                 .bookTitle("Бойцовский клуб")
                 .author(new AuthorDto(chuckPalahniuk.getId()))
-                .customer(new CustomerDto(ivanIvanov.getId()))
+                .customer(CustomerDto.builder()
+                        .id(ivanIvanov.getId())
+                        .build())
                 .build();
 
         BookSaveResponse response = bookSaveSteps.postBookSave(request, 200);

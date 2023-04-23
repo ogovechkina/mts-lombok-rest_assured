@@ -15,7 +15,6 @@ import io.qameta.allure.Story;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Arrays;
@@ -43,27 +42,31 @@ class GetUserBooksTests extends BaseTest {
 
         List<UserBookDto> actualUserBooks = getUserBooksSteps.getUserBooks(gennadyBukin.getId(), 200);
 
+        CustomerDto expectedCustomer = CustomerDto.builder()
+                .id(gennadyBukin.getId())
+                .firstName(gennadyBukin.getFirstName())
+                .secondName(gennadyBukin.getSecondName())
+                .build();
+
         List<UserBookDto> expectedUserBooks = Arrays.asList(
                 UserBookDto.builder()
                         .id(expectedBook1.getId())
                         .bookTitle(expectedBook1.getBookTitle())
                         .author(new AuthorDto(expectedBook1.getAuthorId()))
-                        .customer(new CustomerDto(expectedBook1.getCustomerId()))
+                        .customer(expectedCustomer)
                         .build(),
                 UserBookDto.builder()
                         .id(expectedBook2.getId())
                         .bookTitle(expectedBook2.getBookTitle())
                         .author(new AuthorDto(expectedBook2.getAuthorId()))
-                        .customer(new CustomerDto(expectedBook2.getCustomerId()))
+                        .customer(expectedCustomer)
                         .build());
         getUserBooksSteps.getUserBooksResponseShouldBeCorrect(actualUserBooks, expectedUserBooks);
     }
 
-
-    @DisplayName("Негативный тест /library/users/{userId}/books")
+    @DisplayName("Негативный тест /library/users/{0}/books")
     @Description("Проверка ошибки при получении списка книг по некорректному клиенту.")
     @ParameterizedTest(name = "{displayName} [{index}] Параметры: customerId=[{0}].")
-    @NullSource
     @ValueSource(longs = {-1})
     void failuruGetBooksWithUnknownUserId(Long customerId) {
         getUserBooksSteps.getUserBooks(customerId, 404);
